@@ -6,6 +6,25 @@
 # template-matcher
 template matcher for weixin and sms
 
+## API
+
+```java
+   val template1 = TemplateMatcher.parseTemplate("CANCEL1",
+                "{{first.DATA}}\n" +
+                "预约人：{{keyword1.DATA}}\n" +
+                "预约项目：{{keyword2.DATA}}\n" +
+                "预约时间：{{keyword3.DATA}}\n" +
+                "取消原因：{{keyword4.DATA}}\n" +
+                "{{remark.DATA}}", "{{", "}}");
+
+    val match1 = TemplateMatcher.match(template1,
+                "您好，您有一项预约已取消\n" +
+                "预约人：杨一凡\n" +
+                "预约项目：张丽 阴瑜伽（小班课）\n" +
+                "预约时间：2015-09-28  16:00-17:00\n" +
+                "取消原因：会员临时有事");
+```
+
 ## DEMO1
 ```
 {{first.DATA}}
