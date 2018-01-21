@@ -6,6 +6,7 @@
 # template-matcher
 template matcher for weixin and sms
 
+## DEMO1
 ```
 {{first.DATA}}
 班级名称：{{keyword1.DATA}}
@@ -22,6 +23,7 @@ matches content
 系统已自动取消了已订课会员的预约
 ```
 
+## DEMO2
 
 ```
 [#merchantname#]#character##username#（#mobile#）已成功预订#date#的#course#。
