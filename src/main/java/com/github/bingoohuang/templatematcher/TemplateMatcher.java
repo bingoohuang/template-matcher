@@ -1,5 +1,6 @@
 package com.github.bingoohuang.templatematcher;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
@@ -7,9 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Slf4j @UtilityClass
 public class TemplateMatcher {
-    public static TemplateMatch match(List<Template> templates, String content) {
+    public TemplateMatch match(List<Template> templates, String content) {
         if (StringUtils.isBlank(content)) return null;
 
         TemplateMatch lastMatched = null;
@@ -25,12 +26,12 @@ public class TemplateMatcher {
         return lastMatched;
     }
 
-    public static TemplateMatch match(Template template, String content) {
-        val builder = TemplateMatch.builder();
+    public TemplateMatch match(Template template, String content) {
+        val builder = TemplateMatch.builder().code(template.getCode());
 
         int pos = 0;
-        TemplatePart previousVar = null;
         int consts = 0;
+        TemplatePart previousVar = null;
 
         for (val part : template.getParts()) {
             if (part.isConstant()) {
@@ -64,15 +65,15 @@ public class TemplateMatcher {
             builder.var(previousVar.getValue(), StringUtils.substring(content, pos));
         }
 
-        return builder.matched(true).consts(consts).code(template.getCode()).build();
+        return builder.matched(true).consts(consts).build();
     }
 
-    public static Template parseTemplate(
+    public Template parseTemplate(
             String templateCode, String templateContent, String openBracket, String closeBracket) {
         int pos = 0;
 
         int length = templateContent.length();
-        List<TemplatePart.TemplatePartBuilder> builderParts = new ArrayList<TemplatePart.TemplatePartBuilder>();
+        val builderParts = new ArrayList<TemplatePart.TemplatePartBuilder>();
         TemplatePart.TemplatePartBuilder lastConstPartBuilder = null;
         String lastValue = null;
         boolean lastVar = false;
@@ -115,7 +116,7 @@ public class TemplateMatcher {
             lastConstPartBuilder.constantIgnore(true);
         }
 
-        List<TemplatePart> parts = new ArrayList<TemplatePart>(builderParts.size());
+        val parts = new ArrayList<TemplatePart>(builderParts.size());
         for (val part : builderParts) {
             parts.add(part.build());
         }
