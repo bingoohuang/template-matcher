@@ -5,10 +5,13 @@ import lombok.val;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
 
 public class TemplateMatcherTest {
     @Test
@@ -182,6 +185,16 @@ public class TemplateMatcherTest {
         } catch (Exception ex) {
             assertThat(ex.getMessage()).isEqualTo("模板CANCEL1格式错误，{{和}}不匹配");
         }
+    }
+
+    @Test(expected = InvocationTargetException.class)
+    public void testPrivateConstructor() throws Exception {
+        val constructor = TemplateMatcher.class.getDeclaredConstructor();
+        assertWithMessage("Constructor is private")
+                .that(Modifier.isPrivate(constructor.getModifiers())).isTrue();
+
+        constructor.setAccessible(true);
+        constructor.newInstance();
     }
 
     private Map<String, String> ofMap(String... kvs) {
