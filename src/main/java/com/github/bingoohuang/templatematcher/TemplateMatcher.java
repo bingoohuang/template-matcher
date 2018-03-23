@@ -16,10 +16,10 @@ public class TemplateMatcher {
         TemplateMatch lastMatched = null;
         for (val template : templates) {
             val matched = match(template, content);
-            if (matched.isMatched()) {
-                if (lastMatched == null || matched.getConsts() > lastMatched.getConsts()) {
-                    lastMatched = matched;
-                }
+            if (!matched.isMatched()) continue;
+
+            if (lastMatched == null || matched.getConsts() > lastMatched.getConsts()) {
+                lastMatched = matched;
             }
         }
 
