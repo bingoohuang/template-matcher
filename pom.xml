@@ -29,9 +29,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git@github.com:bingoohuang/westcache.git</connection>
-        <url>http://github.com/bingoohuang/westcache</url>
-        <developerConnection>scm:git:git@github.com:bingoohuang/westcache.git</developerConnection>
+        <connection>scm:git:git@github.com:bingoohuang/template-matcher.git</connection>
+        <url>http://github.com/bingoohuang/template-matcher</url>
+        <developerConnection>scm:git:git@github.com:bingoohuang/template-matcher.git</developerConnection>
     </scm>
 
     <developers>
